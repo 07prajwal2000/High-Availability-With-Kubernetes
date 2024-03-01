@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: httpd-deployment
+  labels:
+    app: httpd
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: httpd
+  template:
+    metadata:
+      labels:
+        app: httpd
+    spec:
+      containers:
+      - name: httpd-container
+        image: busybox
+        ports:
+        - containerPort: 8080
+        command: ["sh", "-c"]
+        args:
+        - "mkdir /webapp; cd /webapp; echo \"<h2>Hostname: $(hostname)</h2> <br> <h2>IP Address: $(hostname -i)</h2>\">index.html;httpd -f -p 0.0.0.0:8080"

@@ -1,0 +1,1 @@
+Command: `echo "<h2>hostname: $(hostname)</h2> <br> <h2>IP: $(hostname -i)</h2>" >index.html`
