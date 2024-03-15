@@ -1,0 +1,19 @@
+{
+  "name": "game",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.1.6"
+  },
+  "dependencies": {
+    "colyseus.js": "^0.15.18",
+    "detect-collisions": "^9.4.0",
+    "kaboom": "^3000.1.17"
+  }
+}

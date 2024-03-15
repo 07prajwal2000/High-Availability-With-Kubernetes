@@ -8,7 +8,7 @@
 // nodejs hashing algorithm repo: https://github.com/tjwebb/fnv-plus
 // const hash = require("./fnv-hash");
 
-// console.log("http://10.244.0.20:8080\t", hash.hash("http://10.244.0.20:8080", 64).hex());
+// console.log("http://10.244.0.20:8080\t", hash.hash("http://10.1.0.50:3000", 64).hex());
 // console.log("http://10.244.0.18:8080\t", hash.hash("http://10.244.0.18:8080", 64).hex());
 // console.log("http://10.244.0.19:8080\t", hash.hash("http://10.244.0.19:8080", 64).hex());
 // above works perfectly. but hashing impl is too-old, 5yrs 

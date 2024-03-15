@@ -1,7 +1,12 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
+  namespace: default
   name: ingress-httpd
+  annotations:
+    kubernetes.io/ingress.class: traefik
+  labels:
+    traefik-ingress: abcd
 spec:
   rules:
   -  http:

@@ -1,11 +1,28 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: learning-k8s
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: test-cfg
+  namespace: learning-k8s
+data:
+  envFile: |
+    maxPlayers=100
+    keys=1,2,3,4
+    hello=world
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: httpd-deployment
+  namespace: learning-k8s
   labels:
     app: httpd
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: httpd
@@ -16,9 +33,33 @@ spec:
     spec:
       containers:
       - name: httpd-container
+        # env:
+        #   - name: test-env
+        #     valueFrom:
+        #       configMapKeyRef:
+        #         name: env-file
+        #         key: envFile
+        volumeMounts:
+          - mountPath: "/config"
+            name: config
+            readOnly: true
+        resources:
+          requests:
+            cpu: 250m
+            memory: 100Mi
+          limits:
+            cpu: 500m
+            memory: 250Mi
         image: busybox
         ports:
         - containerPort: 8080
         command: ["sh", "-c"]
         args:
         - "mkdir /webapp; cd /webapp; echo \"<h2>Hostname: $(hostname)</h2> <br> <h2>IP Address: $(hostname -i)</h2>\">index.html;httpd -f -p 0.0.0.0:8080"
+      volumes:
+        - name: config
+          configMap:
+            name: test-cfg
+            items:
+            - key: envFile
+              path: settings
