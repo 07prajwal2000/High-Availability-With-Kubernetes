@@ -20,7 +20,7 @@ app.use((req, res, next) => {
 app.get("/game", (req, res) => {
   res.status(200).sendFile(path.join(__dirname, "/html", "index.html"));
 });
-
+app.use(express.static(path.join(__dirname, "static"), {index: "index.html"}));
 app.get("/health", (req, res) => {
   res.json();
 });
