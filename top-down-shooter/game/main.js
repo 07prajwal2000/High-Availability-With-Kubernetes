@@ -28,10 +28,10 @@ let myId = "";
 
   ctx.loadSprite("player", "char.png");
   ctx.loadSprite("crate1", "crate.png");
-  
+  const dest = ctx.vec2(80);
   const player = ctx.add([
     ctx.sprite("player"),
-    ctx.pos(80, 80),
+    ctx.pos(dest),
     ctx.area(),
     ctx.body(),
   ]);
@@ -107,7 +107,11 @@ let myId = "";
     room.onMessage("players-pos", (pos) => {
       // console.log("Server position: ", pos[myId].x.toFixed(3), pos[myId].y.toFixed(3), "\nLocal position: ", player.pos.x, player.pos.y);
       for (let key in pos) {
-        if (key == myId) continue;
+        if (key == myId) {
+          dest.x = pos[key].x;
+          dest.y = pos[key].y;
+          continue;
+        }
         key in otherPlayers && (otherPlayers[key].serverPosition.x = pos[key].x);
         key in otherPlayers && (otherPlayers[key].serverPosition.y = pos[key].y);
       }
@@ -140,11 +144,11 @@ let myId = "";
 
   let fpsCounter = 0;
 
-  const dest = ctx.vec2(80);
   ctx.onUpdate(() => {
     dest.x += directions.x * speed;
     dest.y += directions.y * speed;
-    player.pos = dest;
+    // player.pos = dest;
+    player.pos = player.pos.lerp(dest, .3);
     updateOtherPlayers();
     // player.pos = player.pos.lerp(dest, 3 * dt);
     fpsCounter++;
