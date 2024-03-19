@@ -1,4 +1,4 @@
-import kaboom from "kaboom";
+// import kaboom from "kaboom";
 import "./style.css";
 import { Client, Room } from "colyseus.js";
 
@@ -45,7 +45,7 @@ let myId = "";
   const otherPlayers = {};
 
   document.getElementById("connectRoomBtn").onclick = async () => {
-    client = new Client("ws://localhost:3000");
+    client = new Client("ws://3.109.186.77:3000");
     roomId = document.querySelector("#roomid").value;
     room = await client.joinById(roomId);
     connected = true;
